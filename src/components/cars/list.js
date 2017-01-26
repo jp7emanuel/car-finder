@@ -8,7 +8,7 @@ class List extends Component {
           <div className='middle aligned content'>
             <div className='header'>{car.name}</div>
             <div className='description'>
-              <p># { car._maker[0].name }</p>
+              <p>{ car.maker[0].name }</p>
             </div>
           </div>
         </div>

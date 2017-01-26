@@ -1,12 +1,17 @@
 import React, { Component, PropTypes  } from 'react';
-import { reduxForm } from 'redux-form';
-import { carCreate } from '../../actions/index';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import CarsForm from './form';
+import { carCreate, makersFetch } from '../../actions/index';
 
 class New extends Component {
   static contextTypes = {
     router: PropTypes.object
   };
+
+  componentWillMount() {
+    this.props.makersFetch();
+  }
 
   onSubmit(props) {
     this.props.carCreate(props);
@@ -19,11 +24,8 @@ class New extends Component {
         <div className='ui container form-new'>
           <h3>Create a New Car</h3>
           <CarsForm
+            makers={this.props.makers}
             formSubmit={this.onSubmit.bind(this)}
-            initializeForm={this.props.initializeForm}
-            validateHandleSubmit={this.props.handleSubmit}
-            name={this.props.fields.name}
-            maker={this.props.fields.maker}
           />
         </div>
       </div>
@@ -31,20 +33,12 @@ class New extends Component {
   }
 }
 
-function validate(values) {
-  const errors = {};
-
-  if (!values.name) {
-    errors.name = 'Enter a name';
-  }
-  if (!values.maker) {
-    errors.maker = 'Enter a maker';
-  }
-  return errors;
+function mapStateToProps(state) {
+  return { makers: state.makers.all };
 }
 
-export default reduxForm({
-  form: 'CarsForm',
-  'fields': ['name', 'maker'],
-  validate
-}, null, { carCreate })(New);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ makersFetch, carCreate }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(New);
