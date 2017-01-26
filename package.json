@@ -3,14 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "concurrently": "^3.1.0",
     "laravel-elixir": "^6.0.0-15",
     "react-scripts": "0.8.5",
     "semantic-ui": "^2.2.7"
   },
   "dependencies": {
+    "axios": "^0.15.3",
+    "body-parser": "^1.16.0",
+    "cors": "^2.8.1",
+    "express": "^4.14.0",
     "firebase": "^3.6.4",
     "gulp": "^3.9.1",
     "lodash": "^3.10.1",
+    "mongoose": "^4.7.8",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-redux": "^4.0.0",
@@ -21,7 +27,9 @@
     "redux-thunk": "^2.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "concurrently \"npm run react-app-start\" \"npm run client\"",
+    "react-app-start": "react-scripts start",
+    "client": "node server/index.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
