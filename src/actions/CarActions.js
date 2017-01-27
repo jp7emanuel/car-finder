@@ -2,7 +2,8 @@ import axios from 'axios';
 import {
   CREATE_CAR,
   FETCH_CARS,
-  FETCH_CAR
+  FETCH_CAR,
+  SEARCH_CAR
 } from './types';
 
 const API_URL = 'http://localhost:8081';
@@ -61,3 +62,12 @@ export function deleteCar(id) {
       });
   };
 };
+
+export function searchCar(obj) {
+  return (dispatch) => {
+    dispatch({
+      type: SEARCH_CAR,
+      payload: { data: obj }
+    });
+  }
+}

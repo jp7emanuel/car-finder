@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
-import { fetchCars, deleteCar } from '../../actions/index';
+import { fetchCars, deleteCar, searchCar } from '../../actions/index';
 import CarsList from './list';
+import CarsSearch from './search';
 
 class Index extends Component {
   componentWillMount() {
@@ -12,6 +13,10 @@ class Index extends Component {
 
   onDelete(id) {
     this.props.deleteCar(id);
+  }
+
+  onChangeSearch(text) {
+    this.props.searchCar(text);
   }
 
   render() {
@@ -26,7 +31,12 @@ class Index extends Component {
           <div>
             <h3 className='ui center aligned dividing header'>Cars</h3>
           </div>
-          <CarsList cars={this.props.cars} onDelete={this.onDelete.bind(this)}/>
+          <CarsSearch
+            cars={this.props.cars}
+            filteredCars={this.props.filteredCars}
+            onChangeSearch={this.onChangeSearch.bind(this)}
+          />
+          <CarsList cars={this.props.finalFilter || this.props.cars} onDelete={this.onDelete.bind(this)}/>
         </div>
       </div>
     );
@@ -34,11 +44,15 @@ class Index extends Component {
 }
 
 function mapStateToProps(state) {
-  return { cars: state.cars.all };
+  return {
+    cars: state.cars.all,
+    finalFilter: state.cars.finalFilter,
+    filteredCars: state.cars.filteredCars
+  };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchCars, deleteCar }, dispatch);
+  return bindActionCreators({ fetchCars, deleteCar, searchCar }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Index);
