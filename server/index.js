@@ -1,9 +1,9 @@
 const express = require('express');
 const path = require('path');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const cors = require('cors');
 const app = express();
-var mongoose = require('mongoose');
-var bodyParser = require("body-parser");
-var cors = require('cors');
 
 app.use(express.static('./public'));
 app.use(cors());
@@ -12,111 +12,7 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, './public', 'index.html'));
 });
 
-mongoose.connect('mongodb://localhost:27017/carfinder');
-var PORT = 8081;
-var db = mongoose.connection;
+require('./database/connect').connect(app);
 
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  // Initialize the app.
-  var server = app.listen(PORT, function () {
-    var port = server.address().port;
-    console.log("App now running on port", port);
-  });
-});
-
-var makerSchema = mongoose.Schema({
-  name: String
-});
-
-var carSchema = mongoose.Schema({
-  name: String,
-  maker: {  type: mongoose.Schema.Types.ObjectId, ref: 'Makers' }
-});
-
-var Maker = mongoose.model('Makers', makerSchema);
-var Car = mongoose.model('Car', carSchema);
-
-app.get("/carfinder/makers", function(req, res) {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-
-  Maker.find({}).exec(function(err, docs) {
-    if (err) {
-      handleError(res, err.message, "Failed to get objects.");
-    } else {
-      res.status(200).json(docs);
-    }
-  });
-});
-
-app.post("/carfinder/cars", function(req, res) {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-
-  var newCAr = new Car(req.body);
-
-  newCAr.save(function(err, docs) {
-    if (err) {
-      handleError(res, err.message, "Failed to get objects.");
-    } else {
-      res.status(200).json(docs);
-    }
-  });
-});
-
-app.get("/carfinder/cars", function(req, res) {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-
-  Car.find({}).populate('maker').exec(function(err, docs) {
-    if (err) {
-      handleError(res, err.message, "Failed to get objects.");
-    } else {
-      res.status(200).json(docs);
-    }
-  });
-});
-
-app.get("/carfinder/cars/:id", function(req, res) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-
-    Car.findOne({ '_id': req.params.id }).populate('maker').exec(function (err, docs) {
-      if (err) {
-        handleError(res, err.message, "Failed to get objects.");
-      } else {
-        res.status(200).json(docs);
-      }
-    });
-});
-
-app.put("/carfinder/cars/:id", function(req, res) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-
-    var updateDoc = req.body;
-    delete updateDoc._id;
-
-    Car.update({ _id: req.params.id }, { $set: updateDoc}).exec(function (err, docs) {
-      if (err) {
-        handleError(res, err.message, "Failed to get objects.");
-      } else {
-        res.status(200).json(docs);
-      }
-    });
-});
-
-app.delete("/carfinder/cars/:id", function(req, res) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-
-    Car.findOne({ '_id': req.params.id }).remove({}).exec(function (err, docs) {
-      if (err) {
-        handleError(res, err.message, "Failed to get objects.");
-      } else {
-        res.status(200).json(docs);
-      }
-    });
-});
-
+app.use(require('./routes/cars'));
+app.use(require('./routes/makers'));
