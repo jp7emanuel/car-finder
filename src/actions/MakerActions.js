@@ -2,7 +2,8 @@ import axios from 'axios';
 import {
   FETCH_MAKERS,
   FETCH_MAKER,
-  CREATE_MAKER
+  CREATE_MAKER,
+  UPDATE_MAKER
 } from './types';
 
 const API_URL = 'http://localhost:8081';
@@ -32,32 +33,25 @@ export function fetchMaker(id) {
 }
 
 export function createMaker(maker) {
-  return (dispatch) => {
-    axios.post(`${API_URL}/carfinder/makers`, maker)
-      .then(function(response) {
-        dispatch({ type: CREATE_MAKER });
-      });
+  const request = axios.post(`${API_URL}/carfinder/makers`, maker);
+  return  {
+    type: CREATE_MAKER,
+    payload: request
   };
 }
 
 export function updateMaker(maker) {
-  return (dispatch) => {
-    axios.put(`${API_URL}/carfinder/makers/${maker._id}`, maker)
-      .then(function(response) {
-        dispatch({
-          type: CREATE_MAKER
-        });
-      });
+  const request = axios.put(`${API_URL}/carfinder/makers/${maker._id}`, maker);
+  return {
+    type: UPDATE_MAKER,
+    payload: request
   };
 }
 
 export function deleteMaker(id) {
-  return (dispatch) => {
-    axios.delete(`${API_URL}/carfinder/makers/${id}`)
-      .then(function(response) {
-        dispatch({
-          type: CREATE_MAKER
-        });
-      });
+  const request = axios.delete(`${API_URL}/carfinder/makers/${id}`);
+  return {
+    type: CREATE_MAKER,
+    payload: request
   };
 };

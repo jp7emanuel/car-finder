@@ -10,8 +10,10 @@ class New extends Component {
   };
 
   onSubmit(props) {
-    this.props.createMaker(props);
-    return this.context.router.push('/makers');
+    this.props.createMaker(props)
+      .then(() => {
+        this.context.router.push('/makers');
+      });
   }
 
   render() {

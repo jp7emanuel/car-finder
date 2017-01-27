@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -6,12 +6,18 @@ import { fetchMakers, deleteMaker } from '../../actions/index';
 import MakersList from './list';
 
 class Index extends Component {
+  static contextTypes = {
+    router: PropTypes.object
+  };
+
   componentWillMount() {
     this.props.fetchMakers();
   }
 
   onDelete(id) {
-    this.props.deleteMaker(id);
+    this.props.deleteMaker(id).then(() => {
+      this.context.router.go('/makers');
+    });
   }
 
   render() {
