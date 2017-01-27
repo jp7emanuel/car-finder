@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { fetchMakers } from '../../actions/index';
+import { fetchMakers, deleteMaker } from '../../actions/index';
 import MakersList from './list';
 
 class Index extends Component {
@@ -9,11 +10,24 @@ class Index extends Component {
     this.props.fetchMakers();
   }
 
+  onDelete(id) {
+    this.props.deleteMaker(id);
+  }
+
   render() {
     return (
       <div>
         <div className='ui container'>
-          <MakersList makers={this.props.makers} />
+          <div className='ui right aligned header' style={{ marginTop: 10 }}>
+            <Link to='/makers/new' className='ui green basic button'>
+              New Car
+            </Link>
+          </div>
+
+          <MakersList
+            makers={this.props.makers}
+            onDelete={this.onDelete.bind(this)}
+          />
         </div>
       </div>
     );
@@ -25,7 +39,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchMakers }, dispatch);
+  return bindActionCreators({ fetchMakers, deleteMaker }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Index);

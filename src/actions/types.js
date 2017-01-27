@@ -6,3 +6,5 @@ export const SEARCH_CAR = 'SEARCH_CAR';
 
 // Makers
 export const FETCH_MAKERS = 'FETCH_MAKERS';
+export const FETCH_MAKER = 'FETCH_MAKER';
+export const CREATE_MAKER = 'CREATE_MAKER';

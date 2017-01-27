@@ -7,6 +7,8 @@ import CarsNew from './components/cars/new';
 import CarsEdit from './components/cars/edit';
 
 import MakersIndex from './components/makers';
+import MakersNew from './components/makers/new';
+import MakersEdit from './components/makers/edit';
 
 export default (
   <Route path='/' component={App}>
@@ -15,5 +17,7 @@ export default (
     <Route path='cars/edit/:id' component={CarsEdit} />
 
     <Route path='makers' component={MakersIndex} />
+    <Route path='makers/new' component={MakersNew} />
+    <Route path='makers/edit/:id' component={MakersEdit} />
   </Route>
 );

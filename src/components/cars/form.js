@@ -53,7 +53,7 @@ function mapDispatchToProps(dispatch) {
 
 Form = connect(mapStateToProps, mapDispatchToProps)(Form);
 Form = reduxForm({
-  form: 'simple'
+  form: 'carsForm'
 })(Form);
 
 export default Form;

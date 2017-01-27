@@ -10,8 +10,9 @@ class Header extends Component {
       <div className='ui secondary pointing menu'>
         <IndexLink to="/" className={isActive('/')}>Home</IndexLink>
         <Link to='/cars/new' className={isActive('/cars/new')}>New Car</Link>
-        <Link to='/makers' className='item'>Marks</Link>
-        <Link to='/' className='item'>New Mark</Link>
+
+        <Link to='/makers' className={isActive('/makers')}>Makers</Link>
+        <Link to='/makers/new' className={isActive('/makers/new')}>New Maker</Link>
       </div>
     );
   }

@@ -29,10 +29,9 @@ class Edit extends Component {
 
     return (
       <div>
-        <div className='ui container form-new'>
+        <div className='ui container form-edit'>
           <h3>Create a New Car</h3>
           <CarsForm
-            makers={this.props.makers}
             formSubmit={this.onSubmit.bind(this)}
             initialValues={car}
           />
