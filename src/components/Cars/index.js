@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
@@ -7,12 +7,19 @@ import CarsList from './list';
 import CarsSearch from './search';
 
 class Index extends Component {
+  static contextTypes = {
+    router: PropTypes.object
+  };
+
   componentWillMount() {
     this.props.fetchCars();
   }
 
   onDelete(id) {
-    this.props.deleteCar(id);
+    this.props.deleteCar(id)
+      .then(() => {
+        this.context.router.go('/');
+      });
   }
 
   onChangeSearch(text) {

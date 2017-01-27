@@ -16,7 +16,7 @@ class Edit extends Component {
   onSubmit(props) {
     this.props.updateCar({...props, _id: this.props.params.id})
       .then(() => {
-        this.context.router.push('/makers');
+        this.context.router.push('/');
       });
   }
 

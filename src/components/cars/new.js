@@ -10,8 +10,10 @@ class New extends Component {
   };
 
   onSubmit(props) {
-    this.props.createCar(props);
-    return this.context.router.push('/');
+    this.props.createCar(props)
+      .then(() => {
+        this.context.router.push('/');
+      });
   }
 
   render() {

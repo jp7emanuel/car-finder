@@ -15,9 +15,10 @@ class Index extends Component {
   }
 
   onDelete(id) {
-    this.props.deleteMaker(id).then(() => {
-      this.context.router.go('/makers');
-    });
+    this.props.deleteMaker(id)
+      .then(() => {
+        this.context.router.go('/makers');
+      });
   }
 
   render() {

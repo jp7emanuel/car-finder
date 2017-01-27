@@ -33,33 +33,26 @@ export function fetchCar(id) {
 };
 
 export function createCar(car) {
-  return (dispatch) => {
-    axios.post(`${API_URL}/carfinder/cars`, car)
-      .then(function(response) {
-        dispatch({ type: CREATE_CAR });
-      });
+  const request = axios.post(`${API_URL}/carfinder/cars`, car);
+  return  {
+    type: CREATE_CAR,
+    payload: request
   };
 }
 
 export function updateCar(car) {
-  return (dispatch) => {
-    axios.put(`${API_URL}/carfinder/cars/${car._id}`, car)
-      .then(function(response) {
-        dispatch({
-          type: CREATE_CAR
-        });
-      });
+  const request = axios.put(`${API_URL}/carfinder/cars/${car._id}`, car);
+  return {
+    type: CREATE_CAR,
+    payload: request
   };
 };
 
 export function deleteCar(id) {
-  return (dispatch) => {
-    axios.delete(`${API_URL}/carfinder/cars/${id}`)
-      .then(function(response) {
-        dispatch({
-          type: CREATE_CAR
-        });
-      });
+  const request = axios.delete(`${API_URL}/carfinder/cars/${id}`);
+  return {
+    type: CREATE_CAR,
+    payload: request
   };
 };
 
