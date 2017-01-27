@@ -1,15 +1,15 @@
 import {
-  CARS_FETCH,
-  CAR_FETCH
+  FETCH_CARS,
+  FETCH_CAR
 } from '../actions/types';
 
 const INITIAL_STATE = { all: [], car: null };
 
 export default function(state = INITIAL_STATE, action) {
   switch(action.type) {
-    case CARS_FETCH:
+    case FETCH_CARS:
       return { ...state, all: action.payload.data };
-    case CAR_FETCH:
+    case FETCH_CAR:
       return { ...state, car: action.payload.data };
     default:
       return state;

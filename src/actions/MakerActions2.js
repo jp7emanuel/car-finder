@@ -3,7 +3,7 @@ import {
   MAKERS_FETCH,
 } from './types';
 
-export function makersFetch() {
+export function fetchMakers() {
   return (dispatch) => {
     firebaseApp.database().ref('/makers')
       .on('value', snapshot => {

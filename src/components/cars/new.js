@@ -1,7 +1,7 @@
 import React, { Component, PropTypes  } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { carCreate } from '../../actions/index';
+import { createCar } from '../../actions/index';
 import CarsForm from './form';
 
 class New extends Component {
@@ -10,7 +10,7 @@ class New extends Component {
   };
 
   onSubmit(props) {
-    this.props.carCreate(props);
+    this.props.createCar(props);
     return this.context.router.push('/');
   }
 
@@ -29,7 +29,7 @@ class New extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ carCreate }, dispatch);
+  return bindActionCreators({ createCar }, dispatch);
 }
 
 export default connect(null, mapDispatchToProps)(New);

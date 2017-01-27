@@ -3,14 +3,14 @@ import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { makersFetch } from '../../actions/index';
+import { fetchMakers } from '../../actions/index';
 import { textInput, selectInput } from '../common';
 
 const required = value => value ? undefined : 'Required';
 
 class Form extends Component {
   componentWillMount() {
-    this.props.makersFetch();
+    this.props.fetchMakers();
   }
 
   onSubmit(props) {
@@ -48,7 +48,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ makersFetch }, dispatch);
+  return bindActionCreators({ fetchMakers }, dispatch);
 }
 
 Form = connect(mapStateToProps, mapDispatchToProps)(Form);

@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
-import { carsFetch, carDelete } from '../../actions/index';
+import { fetchCars, deleteCar } from '../../actions/index';
 import CarsList from './list';
 
 class Index extends Component {
   componentWillMount() {
-    this.props.carsFetch();
+    this.props.fetchCars();
   }
 
   onDelete(id) {
-    this.props.carDelete(id);
+    this.props.deleteCar(id);
   }
 
   render() {
@@ -38,7 +38,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ carsFetch, carDelete }, dispatch);
+  return bindActionCreators({ fetchCars, deleteCar }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Index);

@@ -1,16 +1,13 @@
 import {
-  MAKERS_FETCH,
-  MAKER_FETCH
+  FETCH_MAKERS,
 } from '../actions/types';
 
-const INITIAL_STATE = { all: [], maker: null };
+const INITIAL_STATE = { all: [] };
 
 export default function(state = INITIAL_STATE, action) {
   switch(action.type) {
-    case MAKERS_FETCH:
+    case FETCH_MAKERS:
       return { ...state, all: action.payload.data };
-    case MAKER_FETCH:
-      return { ...state, maker: action.payload.data };
     default:
       return state;
   }

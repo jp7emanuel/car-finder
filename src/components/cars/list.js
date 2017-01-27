@@ -14,7 +14,7 @@ class List extends Component {
           <td>{car.name}</td>
           <td>{ car.maker.name }</td>
           <td>
-            <Link to={`/cars/edit/${car._id}`} className='ui primary basic button'>Cancel</Link>
+            <Link to={`/cars/edit/${car._id}`} className='ui primary basic button'>Edit</Link>
             <a href="#" className='ui negative basic button' onClick={this.onDelete.bind(this, car._id)}>
               Delete
             </a>

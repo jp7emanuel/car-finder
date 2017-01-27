@@ -1,62 +1,62 @@
 import axios from 'axios';
 import {
-  CAR_CREATE,
-  CARS_FETCH,
-  CAR_FETCH
+  CREATE_CAR,
+  FETCH_CARS,
+  FETCH_CAR
 } from './types';
 
 const API_URL = 'http://localhost:8081';
 
-export function carCreate(car) {
-  return (dispatch) => {
-    axios.post(`${API_URL}/carfinder/cars`, car)
-      .then(function(response) {
-        dispatch({ type: CAR_CREATE });
-      });
-  };
-}
-
-export function carsFetch() {
+export function fetchCars() {
   return (dispatch) => {
     axios.get(`${API_URL}/carfinder/cars`)
       .then(function(response) {
         dispatch({
-          type: CARS_FETCH,
+          type: FETCH_CARS,
           payload: { data: response.data }
         });
       });
   };
 };
 
-export function carFetch(id) {
+export function fetchCar(id) {
   return (dispatch) => {
     axios.get(`${API_URL}/carfinder/cars/${id}`)
       .then(function(response) {
         dispatch({
-          type: CAR_FETCH,
+          type: FETCH_CAR,
           payload: { data: response.data }
         });
       });
   };
 };
 
-export function carUpdate(car) {
+export function createCar(car) {
+  return (dispatch) => {
+    axios.post(`${API_URL}/carfinder/cars`, car)
+      .then(function(response) {
+        dispatch({ type: CREATE_CAR });
+      });
+  };
+}
+
+export function updateCar(car) {
   return (dispatch) => {
     axios.put(`${API_URL}/carfinder/cars/${car._id}`, car)
       .then(function(response) {
         dispatch({
-          type: CAR_CREATE
+          type: CREATE_CAR
         });
       });
   };
 };
 
-export function carDelete(id) {
+export function deleteCar(id) {
   return (dispatch) => {
     axios.delete(`${API_URL}/carfinder/cars/${id}`)
       .then(function(response) {
         dispatch({
-          type: CAR_CREATE
+          type: CREATE_CAR
         });
       });
   };

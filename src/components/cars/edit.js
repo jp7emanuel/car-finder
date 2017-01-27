@@ -1,7 +1,7 @@
 import React, { Component, PropTypes  } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { carFetch, carUpdate } from '../../actions/index';
+import { fetchCar, updateCar } from '../../actions/index';
 import CarsForm from './form';
 
 class Edit extends Component {
@@ -10,11 +10,11 @@ class Edit extends Component {
   };
 
   componentWillMount() {
-    this.props.carFetch(this.props.params.id);
+    this.props.fetchCar(this.props.params.id);
   }
 
   onSubmit(props) {
-    this.props.carUpdate({...props, _id: this.props.params.id});
+    this.props.updateCar({...props, _id: this.props.params.id});
     return this.context.router.push('/');
   }
 
@@ -47,7 +47,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ carFetch, carUpdate }, dispatch);
+  return bindActionCreators({ fetchCar, updateCar }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Edit);
