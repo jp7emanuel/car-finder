@@ -4,14 +4,6 @@ import { selectInput } from '../common';
 import _ from 'lodash';
 
 class Search extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      makerSelected: ''
-    }
-  }
-
   onChange(event) {
     this.props.onChangeSearch({
       type: event.target.name,
