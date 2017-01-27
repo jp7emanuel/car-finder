@@ -1,24 +1,41 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 
 class List extends Component {
+  onDelete(id) {
+    event.preventDefault();
+    this.props.onDelete(id);
+  }
+
   render() {
     const carsRender = this.props.cars.map((car) => {
       return (
-        <div className='item' key={car._id}>
-          <div className='middle aligned content'>
-            <div className='header'>{car.name}</div>
-            <div className='description'>
-              <p>{ car.maker[0].name }</p>
-            </div>
-          </div>
-        </div>
+        <tr key={car._id}>
+          <td>{car.name}</td>
+          <td>{ car.maker.name }</td>
+          <td>
+            <Link to={`/cars/edit/${car._id}`} className='ui primary basic button'>Cancel</Link>
+            <a href="#" className='ui negative basic button' onClick={this.onDelete.bind(this, car._id)}>
+              Delete
+            </a>
+          </td>
+        </tr>
       );
     });
 
     return (
-      <div className='ui items'>
-        {carsRender}
-      </div>
+      <table className='ui single line table'>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Mark</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {carsRender}
+        </tbody>
+      </table>
     );
   }
 }
