@@ -1,17 +1,13 @@
 import React, { Component, PropTypes  } from 'react';
-import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { carCreate } from '../../actions/index';
 import CarsForm from './form';
-import { carCreate, makersFetch } from '../../actions/index';
 
 class New extends Component {
   static contextTypes = {
     router: PropTypes.object
   };
-
-  componentWillMount() {
-    this.props.makersFetch();
-  }
 
   onSubmit(props) {
     this.props.carCreate(props);
@@ -24,7 +20,6 @@ class New extends Component {
         <div className='ui container form-new'>
           <h3>Create a New Car</h3>
           <CarsForm
-            makers={this.props.makers}
             formSubmit={this.onSubmit.bind(this)}
           />
         </div>
@@ -33,12 +28,8 @@ class New extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return { makers: state.makers.all };
-}
-
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ makersFetch, carCreate }, dispatch);
+  return bindActionCreators({ carCreate }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(New);
+export default connect(null, mapDispatchToProps)(New);

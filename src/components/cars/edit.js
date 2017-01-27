@@ -1,10 +1,8 @@
 import React, { Component, PropTypes  } from 'react';
-import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { carFetch, carUpdate } from '../../actions/index';
 import CarsForm from './form';
-import { carFetch, makersFetch, carUpdate } from '../../actions/index';
-
-
 
 class Edit extends Component {
   static contextTypes = {
@@ -13,9 +11,7 @@ class Edit extends Component {
 
   componentWillMount() {
     this.props.carFetch(this.props.params.id);
-    this.props.makersFetch();
   }
-
 
   onSubmit(props) {
     this.props.carUpdate({...props, _id: this.props.params.id});
@@ -23,7 +19,7 @@ class Edit extends Component {
   }
 
   render() {
-    var car = null;
+    let car = null;
     if (this.props.car) {
       car = {
         name: this.props.car.name,
@@ -39,7 +35,6 @@ class Edit extends Component {
             makers={this.props.makers}
             formSubmit={this.onSubmit.bind(this)}
             initialValues={car}
-            makers={this.props.makers}
           />
         </div>
       </div>
@@ -48,11 +43,11 @@ class Edit extends Component {
 }
 
 function mapStateToProps(state) {
-  return { car: state.cars.car, makers: state.makers.all };
+  return { car: state.cars.car };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ carFetch, makersFetch, carUpdate }, dispatch);
+  return bindActionCreators({ carFetch, carUpdate }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Edit);
