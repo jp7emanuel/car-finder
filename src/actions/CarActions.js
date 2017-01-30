@@ -1,4 +1,6 @@
 import axios from 'axios';
+import firebaseApp from '../../server/database/firebase_connection';
+import uuid from 'uuid';
 import {
   CREATE_CAR,
   FETCH_CARS,
@@ -33,19 +35,35 @@ export function fetchCar(id) {
 };
 
 export function createCar(car) {
-  const request = axios.post(`${API_URL}/carfinder/cars`, car);
-  return  {
-    type: CREATE_CAR,
-    payload: request
+  return (dispatch) => {
+    return firebaseApp.storage().ref().child(uuid.v4())
+      .put(car.photo[0]).then((snapshot) => {
+        car.photo = snapshot.downloadURL;
+        return {
+          type: CREATE_CAR,
+          payload: axios.post(`${API_URL}/carfinder/cars`, car)
+        };
+      });
   };
 }
 
 export function updateCar(car) {
-  const request = axios.put(`${API_URL}/carfinder/cars/${car._id}`, car);
-  return {
-    type: CREATE_CAR,
-    payload: request
-  };
+  if (typeof car.photo[0] === 'object') {
+    return firebaseApp.storage().ref().child(uuid.v4())
+      .put(car.photo[0]).then((snapshot) => {
+        car.photo = snapshot.downloadURL;
+        return {
+          type: CREATE_CAR,
+          payload: axios.put(`${API_URL}/carfinder/cars/${car._id}`, car)
+        };
+      });
+  } else {
+    const request = axios.put(`${API_URL}/carfinder/cars/${car._id}`, car);
+    return {
+      type: CREATE_CAR,
+      payload: request
+    };
+  }
 };
 
 export function deleteCar(id) {
@@ -64,3 +82,4 @@ export function searchCar(obj) {
     });
   }
 }
+

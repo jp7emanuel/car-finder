@@ -10,24 +10,8 @@ class New extends Component {
   };
 
   onSubmit(props) {
-    this.handleCreateCar(props);
-  }
-
-  onSubmitWithUpload(props) {
-    this.handleUploadImage(props);
-  }
-
-  handleUploadImage(props) {
-    this.props.uploadImage(props.photo[0])
-      .then((event) => {
-        props.photo = event.payload.downloadURL;
-        this.handleCreateCar(props);
-      });
-  }
-
-  handleCreateCar(props) {
     this.props.createCar(props)
-      .then(() => {
+      .then((response) => {
         this.context.router.push('/');
       });
   }
@@ -39,7 +23,6 @@ class New extends Component {
           <h3>Create a New Car</h3>
           <CarsForm
             formSubmit={this.onSubmit.bind(this)}
-            formSubmitWithUpload={this.onSubmitWithUpload.bind(this)}
           />
         </div>
       </div>

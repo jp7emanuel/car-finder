@@ -15,11 +15,7 @@ class Form extends Component {
   }
 
   onSubmit(props) {
-    if (typeof props.photo === 'object') {
-      this.props.formSubmitWithUpload(props);
-    } else {
-      this.props.formSubmit(props);
-    }
+    this.props.formSubmit(props);
   }
 
   render() {
