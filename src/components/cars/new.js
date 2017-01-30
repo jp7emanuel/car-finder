@@ -23,6 +23,7 @@ class New extends Component {
           <h3>Create a New Car</h3>
           <CarsForm
             formSubmit={this.onSubmit.bind(this)}
+            isLoading={this.props.isLoading}
           />
         </div>
       </div>
@@ -30,8 +31,12 @@ class New extends Component {
   }
 }
 
+function mapStateToProps(state) {
+  return { isLoading: state.cars.isLoading };
+}
+
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ createCar, uploadImage }, dispatch);
 }
 
-export default connect(null, mapDispatchToProps)(New);
+export default connect(mapStateToProps, mapDispatchToProps)(New);

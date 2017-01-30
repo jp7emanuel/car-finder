@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { fetchMakers } from '../../actions/index';
-import { textInput, selectInput } from '../common';
+import { textInput, selectInput, Loading } from '../common';
 
 const required = value => value ? undefined : 'Required';
 
@@ -19,6 +19,10 @@ class Form extends Component {
   }
 
   render() {
+    if (this.props.isLoading) {
+      return <Loading />
+    }
+
     const checkPhotoRequired = this.props.car && this.props.car.photo ? false : [ required ];
 
     const renderMakerOption = this.props.makers.map(maker => {

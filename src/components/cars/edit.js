@@ -32,6 +32,7 @@ class Edit extends Component {
           <CarsForm
             formSubmit={this.onSubmit.bind(this)}
             initialValues={this.props.car}
+            isLoading={this.props.isLoading}
           />
         </div>
       </div>
@@ -40,7 +41,7 @@ class Edit extends Component {
 }
 
 function mapStateToProps(state) {
-  return { car: state.cars.car };
+  return { car: state.cars.car, isLoading: state.cars.isLoading };
 }
 
 function mapDispatchToProps(dispatch) {
