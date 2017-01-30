@@ -1,7 +1,7 @@
 import React, { Component, PropTypes  } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { fetchCar, updateCar } from '../../actions/index';
+import { fetchCar, updateCar, uploadImage } from '../../actions/index';
 import CarsForm from './form';
 
 class Edit extends Component {
@@ -13,20 +13,32 @@ class Edit extends Component {
     this.props.fetchCar(this.props.params.id);
   }
 
-  onSubmit(props) {
+  handleUpdateImage(props) {
+    this.props.uploadImage(props.photo[0])
+      .then((event) => {
+        props.photo = event.payload.downloadURL;
+        this.handleUpdateCar(props);
+      });
+  }
+
+  handleUpdateCar(props) {
     this.props.updateCar({...props, _id: this.props.params.id})
       .then(() => {
         this.context.router.push('/');
       });
   }
 
+  onSubmit(props) {
+    this.handleUpdateCar(props);
+  }
+
+  onSubmitWithUpload(props) {
+    this.handleUpdateImage(props);
+  }
+
   render() {
-    let car = null;
     if (this.props.car) {
-      car = {
-        name: this.props.car.name,
-        maker: this.props.car.maker._id
-      }
+      this.props.car.maker = this.props.car.maker._id;
     }
 
     return (
@@ -35,7 +47,9 @@ class Edit extends Component {
           <h3>Create a New Car</h3>
           <CarsForm
             formSubmit={this.onSubmit.bind(this)}
-            initialValues={car}
+            formSubmitWithUpload={this.onSubmitWithUpload.bind(this)}
+            initialValues={this.props.car}
+            car={this.props.car}
           />
         </div>
       </div>
@@ -48,7 +62,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchCar, updateCar }, dispatch);
+  return bindActionCreators({ fetchCar, updateCar, uploadImage }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Edit);

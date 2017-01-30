@@ -1,4 +1,4 @@
-import * as firebase from 'firebase';
+const firebase = require('firebase');
 
 var firebaseApp = firebase.initializeApp({
   apiKey: process.env.REACT_APP_FIREBASE_KEY,

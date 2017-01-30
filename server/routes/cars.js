@@ -5,6 +5,7 @@ const app = express();
 
 let carSchema = mongoose.Schema({
   name: String,
+  photo: String,
   maker: {  type: mongoose.Schema.Types.ObjectId, ref: 'Makers' }
 });
 

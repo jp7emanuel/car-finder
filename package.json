@@ -24,7 +24,8 @@
     "redux": "^3.0.4",
     "redux-form": "^v6.5.0",
     "redux-promise": "^0.5.3",
-    "redux-thunk": "^2.1.0"
+    "redux-thunk": "^2.1.0",
+    "uuid": "^3.0.1"
   },
   "scripts": {
     "start": "concurrently \"npm run react-app-start\" \"npm run client\"",

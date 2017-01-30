@@ -15,7 +15,12 @@ class Form extends Component {
   }
 
   onSubmit(props) {
-    this.props.formSubmit(props);
+    if (props.photo) {
+      this.props.formSubmitWithUpload(props);
+    } else {
+      props.photo = this.props.car.photo || null;
+      this.props.formSubmit(props);
+    }
   }
 
   render() {
@@ -35,6 +40,11 @@ class Form extends Component {
             {renderMakerOption}
           </Field>
         </div>
+
+        <div className='field'>
+          <Field name='photo' type='file' component={textInput} label='Photo' />
+        </div>
+
         <div className='actions-buttons'>
           <button type='submit' className='ui blue basic button'>Submit</button>
           <Link to='/' className='ui red basic button'>Cancel</Link>
