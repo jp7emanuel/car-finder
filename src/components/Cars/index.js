@@ -35,9 +35,6 @@ class Index extends Component {
               New Car
             </Link>
           </div>
-          <div>
-            <h3 className='ui center aligned dividing header'>Cars</h3>
-          </div>
           <CarsSearch
             cars={this.props.cars}
             filteredCars={this.props.filteredCars}

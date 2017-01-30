@@ -22,18 +22,22 @@ class Search extends Component {
     });
 
     return (
-      <div className="ui grid">
-        <div className="eight wide column">
-          <Field name='maker' label='maker' component={selectInput} onChange={this.onChange.bind(this)}>
-            <option value="">Select an option</option>
-            {renderMakerOption}
-          </Field>
-        </div>
-        <div className="eight wide column">
-          <Field name='car' label='car' component={selectInput} onChange={this.onChange.bind(this)}>
-            <option value="">Cars</option>
-            {renderCarsOption}
-          </Field>
+      <div className='ui segment'>
+        <h2 class='ui right floated header'>Cars</h2>
+        <div class='ui clearing divider'></div>
+        <div className='ui grid'>
+          <div className='eight wide column'>
+            <Field name='maker' label='maker' component={selectInput} onChange={this.onChange.bind(this)}>
+              <option value="">Select an option</option>
+              {renderMakerOption}
+            </Field>
+          </div>
+          <div className='eight wide column'>
+            <Field name='car' label='car' component={selectInput} onChange={this.onChange.bind(this)}>
+              <option value="">Cars</option>
+              {renderCarsOption}
+            </Field>
+          </div>
         </div>
       </div>
     );

@@ -47,8 +47,6 @@ export function createCar(car) {
           type: CREATE_CAR,
           payload: axios.post(`${API_URL}/carfinder/cars`, car)
         };
-
-        dispatch(notLoading());
       });
   };
 }
