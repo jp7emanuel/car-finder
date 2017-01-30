@@ -6,6 +6,10 @@ import { textInput } from '../common';
 const required = value => value ? undefined : 'Required';
 
 class Form extends Component {
+  componentWillMount() {
+    this.props.initialize();
+  }
+
   onSubmit(props) {
     this.props.formSubmit(props);
   }
