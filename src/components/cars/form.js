@@ -15,15 +15,16 @@ class Form extends Component {
   }
 
   onSubmit(props) {
-    if (props.photo) {
+    if (typeof props.photo === 'object') {
       this.props.formSubmitWithUpload(props);
     } else {
-      props.photo = this.props.car.photo || null;
       this.props.formSubmit(props);
     }
   }
 
   render() {
+    const checkPhotoRequired = this.props.car && this.props.car.photo ? false : [ required ];
+
     const renderMakerOption = this.props.makers.map(maker => {
       return <option key={maker._id} value={maker._id}>{maker.name}</option>
     });
@@ -42,7 +43,7 @@ class Form extends Component {
         </div>
 
         <div className='field'>
-          <Field name='photo' type='file' component={textInput} label='Photo' />
+          <Field name='photo' type='file' component={textInput} label='Photo' validate={checkPhotoRequired} />
         </div>
 
         <div className='actions-buttons'>

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes  } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { createCar } from '../../actions/index';
+import { createCar, uploadImage } from '../../actions/index';
 import CarsForm from './form';
 
 class New extends Component {
@@ -10,6 +10,22 @@ class New extends Component {
   };
 
   onSubmit(props) {
+    this.handleCreateCar(props);
+  }
+
+  onSubmitWithUpload(props) {
+    this.handleUploadImage(props);
+  }
+
+  handleUploadImage(props) {
+    this.props.uploadImage(props.photo[0])
+      .then((event) => {
+        props.photo = event.payload.downloadURL;
+        this.handleCreateCar(props);
+      });
+  }
+
+  handleCreateCar(props) {
     this.props.createCar(props)
       .then(() => {
         this.context.router.push('/');
@@ -23,6 +39,7 @@ class New extends Component {
           <h3>Create a New Car</h3>
           <CarsForm
             formSubmit={this.onSubmit.bind(this)}
+            formSubmitWithUpload={this.onSubmitWithUpload.bind(this)}
           />
         </div>
       </div>
@@ -31,7 +48,7 @@ class New extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ createCar }, dispatch);
+  return bindActionCreators({ createCar, uploadImage }, dispatch);
 }
 
 export default connect(null, mapDispatchToProps)(New);

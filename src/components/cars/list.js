@@ -10,32 +10,29 @@ class List extends Component {
   render() {
     const carsRender = this.props.cars.map((car) => {
       return (
-        <tr key={car._id}>
-          <td>{car.name}</td>
-          <td>{ car.maker.name }</td>
-          <td>
-            <Link to={`/cars/edit/${car._id}`} className='ui primary basic button'>Edit</Link>
-            <a href="#" className='ui negative basic button' onClick={this.onDelete.bind(this, car._id)}>
-              Delete
-            </a>
-          </td>
-        </tr>
+        <div key={car._id} className='item'>
+          <div className='image'>
+            <img src={car.photo} role='presentation' />
+          </div>
+          <div className='content'>
+            <div className='header'>{car.name}</div>
+            <div className='meta'>{ car.maker.name }</div>
+
+            <div className='extra'>
+              <Link to={`/cars/edit/${car._id}`} className='ui primary basic button'>Edit</Link>
+              <a href="#" className='ui negative basic button' onClick={this.onDelete.bind(this, car._id)}>
+                Delete
+              </a>
+            </div>
+          </div>
+        </div>
       );
     });
 
     return (
-      <table className='ui single line table'>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Mark</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {carsRender}
-        </tbody>
-      </table>
+      <div className='ui divided items'>
+        {carsRender}
+      </div>
     );
   }
 }

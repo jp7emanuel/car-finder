@@ -13,6 +13,14 @@ class Edit extends Component {
     this.props.fetchCar(this.props.params.id);
   }
 
+  onSubmit(props) {
+    this.handleUpdateCar(props);
+  }
+
+  onSubmitWithUpload(props) {
+    this.handleUpdateImage(props);
+  }
+
   handleUpdateImage(props) {
     this.props.uploadImage(props.photo[0])
       .then((event) => {
@@ -28,14 +36,6 @@ class Edit extends Component {
       });
   }
 
-  onSubmit(props) {
-    this.handleUpdateCar(props);
-  }
-
-  onSubmitWithUpload(props) {
-    this.handleUpdateImage(props);
-  }
-
   render() {
     if (this.props.car) {
       this.props.car.maker = this.props.car.maker._id;
@@ -49,7 +49,6 @@ class Edit extends Component {
             formSubmit={this.onSubmit.bind(this)}
             formSubmitWithUpload={this.onSubmitWithUpload.bind(this)}
             initialValues={this.props.car}
-            car={this.props.car}
           />
         </div>
       </div>
