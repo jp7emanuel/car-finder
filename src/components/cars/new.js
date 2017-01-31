@@ -12,7 +12,9 @@ class New extends Component {
   onSubmit(props) {
     this.props.createCar(props)
       .then((response) => {
-        this.context.router.push('/');
+        response.payload.then((status) => {
+          this.context.router.push('/');
+        });
       });
   }
 

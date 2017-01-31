@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import { fetchCars, deleteCar, searchCar } from '../../actions/index';
+import _ from 'lodash';
 import CarsList from './list';
 import CarsSearch from './search';
 
@@ -27,23 +28,28 @@ class Index extends Component {
   }
 
   render() {
-    return (
-      <div>
-        <div className='ui container'>
-          <div className='ui right aligned header' style={{ marginTop: 10 }}>
-            <Link to='/cars/new' className='ui green basic button'>
-              New Car
-            </Link>
+    if (this.props.cars.length) {
+      return (
+        <div>
+          <div className='ui container'>
+            <div className='ui right aligned header' style={{ marginTop: 10 }}>
+              <Link to='/cars/new' className='ui green basic button'>
+                New Car
+              </Link>
+            </div>
+            <CarsSearch
+              cars={this.props.cars}
+              filteredCars={this.props.filteredCars}
+              onChangeSearch={this.onChangeSearch.bind(this)}
+            />
+
+            <CarsList cars={this.props.finalFilter || this.props.cars} onDelete={this.onDelete.bind(this)}/>
           </div>
-          <CarsSearch
-            cars={this.props.cars}
-            filteredCars={this.props.filteredCars}
-            onChangeSearch={this.onChangeSearch.bind(this)}
-          />
-          <CarsList cars={this.props.finalFilter || this.props.cars} onDelete={this.onDelete.bind(this)}/>
         </div>
-      </div>
-    );
+      );
+    } else {
+      return <div>Loading</div>
+    }
   }
 }
 

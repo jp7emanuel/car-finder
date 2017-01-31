@@ -35,18 +35,16 @@ export default function(state = INITIAL_STATE, action) {
           filteredCars = finalFilter;
         } else {
           finalFilter = null;
-        }
-      }
-
-      if (action.payload.data.type === 'car') {
-        if (action.payload.data.value) {
-          finalFilter = state.all.filter((car) => {
-            return car._id.indexOf(action.payload.data.value) !== -1;
-          });
-        } else {
           filteredCars = null;
         }
       }
+
+      if (action.payload.data.type === 'car' && action.payload.data.value) {
+        finalFilter = state.all.filter((car) => {
+          return car._id.indexOf(action.payload.data.value) !== -1;
+        });
+      }
+
       return { ...state, finalFilter: finalFilter, filteredCars: filteredCars, isLoading: false };
     case IS_LOADING:
       return { ...state, isLoading: true };

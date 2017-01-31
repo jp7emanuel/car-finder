@@ -23,9 +23,8 @@ class Search extends Component {
 
     return (
       <div className='ui segment'>
-        <h2 class='ui right floated header'>Cars</h2>
-        <div class='ui clearing divider'></div>
-        <div className='ui grid'>
+        <h2 className='ui floated header'>Cars</h2>
+        <div className='ui grid form'>
           <div className='eight wide column'>
             <Field name='maker' label='maker' component={selectInput} onChange={this.onChange.bind(this)}>
               <option value="">Select an option</option>
