@@ -10,22 +10,38 @@ class List extends Component {
     this.setState({ carsList: this.sliceCars() });
   }
 
-  onDelete(id) {
-    event.preventDefault();
-    this.props.onDelete(id);
+  componentWillUpdate(nextProps, nextState) {
+    if (_.isEqual(nextProps.cars, nextState.carsList) && nextState.hasMore !== false) {
+      this.setState({ hasMore: false });
+    }
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (!_.isEqual(this.props.cars, prevProps.cars)) {
+      _.assign(this.props.cars, {});
+
+      this.setState({ carsList: this.sliceCars() });
+      this.checkHasMore();
+    }
   }
 
-  sliceCars(start = 0, end = 10) {
-    return _.slice(this.props.cars, start, end);
+  handleOnDelete(id) {
+    event.preventDefault();
+    this.props.onDelete(id);
   }
 
   handleLoadMore() {
     let startValue = this.state.carsList.length + 10;
     this.setState({ carsList: this.state.carsList.concat(this.sliceCars(this.state.carsList.length, startValue)) });
 
-    if (this.state.carsList.length === this.props.cars.length) {
-      this.setState({ hasMore: false });
-    }
+    this.checkHasMore(this.state.carsList);
+  }
+
+  checkHasMore(lista) {
+    this.setState({ hasMore: !_.isEqual(lista, this.props.cars) });
+  }
+
+  sliceCars(start = 0, end = 10) {
+    return _.slice(this.props.cars, start, end);
   }
 
   render() {
@@ -35,7 +51,7 @@ class List extends Component {
         return (
           <div key={car._id} className='item'>
             <div className='image'>
-              <img src={car.photo} role='presentation' />
+              <img src='http://dlu2usud3h120.cloudfront.net/imagens/modules/localidade/cidades/carro-localidade-personalizada.png' role='presentation' />
             </div>
             <div className='content'>
               <div className='header'>{car.name}</div>
@@ -43,7 +59,7 @@ class List extends Component {
 
               <div className='extra'>
                 <Link to={`/cars/edit/${car._id}`} className='ui primary basic button'>Edit</Link>
-                <a href="#" className='ui negative basic button' onClick={this.onDelete.bind(this, car._id)}>
+                <a href="#" className='ui negative basic button' onClick={this.handleOnDelete.bind(this, car._id)}>
                   Delete
                 </a>
               </div>

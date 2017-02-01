@@ -17,7 +17,7 @@ class Search extends Component {
       return <option key={maker._id} value={maker._id}>{maker.name}</option>
     });
 
-    const renderCarsOption = _.map(_.uniq(this.props.filteredCars, '_id'), (car) => {
+    const renderCarsOption = _.map(_.uniq(this.props.carsToFilter, '_id'), (car) => {
       return <option key={car._id} value={car._id}>{car.name}</option>
     });
 

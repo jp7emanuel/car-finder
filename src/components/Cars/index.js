@@ -28,7 +28,7 @@ class Index extends Component {
   }
 
   render() {
-    if (this.props.cars.length) {
+    if (this.props.filteredCars || this.props.cars.length > 0) {
       return (
         <div>
           <div className='ui container'>
@@ -39,24 +39,24 @@ class Index extends Component {
             </div>
             <CarsSearch
               cars={this.props.cars}
-              filteredCars={this.props.filteredCars}
+              carsToFilter={this.props.carsFilteredByMaker || this.props.cars}
               onChangeSearch={this.onChangeSearch.bind(this)}
             />
 
-            <CarsList cars={this.props.finalFilter || this.props.cars} onDelete={this.onDelete.bind(this)}/>
+            <CarsList cars={this.props.filteredCars || this.props.cars} onDelete={this.onDelete.bind(this)}/>
           </div>
         </div>
       );
     } else {
-      return <div>Loading</div>
+      return <div>Loading...</div>
     }
   }
 }
 
 function mapStateToProps(state) {
   return {
-    cars: state.cars.all,
-    finalFilter: state.cars.finalFilter,
+    cars: state.cars.cars,
+    carsFilteredByMaker: state.cars.carsFilteredByMaker,
     filteredCars: state.cars.filteredCars
   };
 }

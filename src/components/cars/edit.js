@@ -15,7 +15,7 @@ class Edit extends Component {
 
   onSubmit(props) {
     this.props.updateCar({...props, _id: this.props.params.id})
-      .then(() => {
+      .then((response) => {
         this.context.router.push('/');
       });
   }
@@ -28,7 +28,7 @@ class Edit extends Component {
     return (
       <div>
         <div className='ui container form-edit'>
-          <h3>Create a New Car</h3>
+          <h3>Edit a Car</h3>
           <CarsForm
             formSubmit={this.onSubmit.bind(this)}
             initialValues={this.props.car}

@@ -24,7 +24,6 @@ class Form extends Component {
     }
 
     const checkPhotoRequired = this.props.car && this.props.car.photo ? false : [ required ];
-
     const renderMakerOption = this.props.makers.map(maker => {
       return <option key={maker._id} value={maker._id}>{maker.name}</option>
     });
@@ -47,7 +46,7 @@ class Form extends Component {
         </div>
 
         <div className='actions-buttons'>
-          <button type='submit' className='ui blue basic button'>Submit</button>
+          <button type='submit' className='ui blue basic button'>Send</button>
           <Link to='/' className='ui red basic button'>Cancel</Link>
         </div>
       </form>

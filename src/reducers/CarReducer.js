@@ -8,44 +8,24 @@ import {
 } from '../actions/types';
 
 const INITIAL_STATE = {
-  all: [],
-  isLoading: false,
+  cars: [],
   car: null,
+  carsFilteredByMaker: null,
   filteredCars: null,
-  finalFilter: null
+  isLoading: false
 };
 
 export default function(state = INITIAL_STATE, action) {
   switch(action.type) {
     case FETCH_CARS:
-      return { ...state, all: action.payload.data, isLoading: false };
+      return { ...state, cars: action.payload.data, isLoading: false };
     case FETCH_CAR:
       return { ...state, car: action.payload.data, isLoading: false };
     case CREATE_CAR:
       return { ...state, isLoading: false };
     case SEARCH_CAR:
-      let finalFilter = state.filteredCars || null;
-      let filteredCars = state.filteredCars || null;
-
-      if (action.payload.data.type === 'maker') {
-        if (action.payload.data.value) {
-          finalFilter = state.all.filter((car) => {
-            return car.maker._id.indexOf(action.payload.data.value) !== -1;
-          });
-          filteredCars = finalFilter;
-        } else {
-          finalFilter = null;
-          filteredCars = null;
-        }
-      }
-
-      if (action.payload.data.type === 'car' && action.payload.data.value) {
-        finalFilter = state.all.filter((car) => {
-          return car._id.indexOf(action.payload.data.value) !== -1;
-        });
-      }
-
-      return { ...state, finalFilter: finalFilter, filteredCars: filteredCars, isLoading: false };
+      const retorno = filter(state, action);
+      return { ...state, ...retorno };
     case IS_LOADING:
       return { ...state, isLoading: true };
     case NOT_LOADING:
@@ -53,4 +33,32 @@ export default function(state = INITIAL_STATE, action) {
     default:
       return state;
   }
+}
+
+function filter(state, action) {
+  let retorno = {
+    carsFilteredByMaker: state.carsFilteredByMaker || null,
+    filteredCars: state.carsFilteredByMaker || null,
+    isLoading: false
+  };
+
+  if (action.payload.data.type === 'maker') {
+    if (action.payload.data.value) {
+      retorno.filteredCars = state.cars.filter((car) => {
+        return car.maker._id.indexOf(action.payload.data.value) !== -1;
+      });
+      retorno.carsFilteredByMaker = retorno.filteredCars;
+    } else {
+      retorno.filteredCars = null;
+      retorno.carsFilteredByMaker = null;
+    }
+  }
+
+  if (action.payload.data.type === 'car' && action.payload.data.value) {
+    retorno.filteredCars = state.cars.filter((car) => {
+      return car._id.indexOf(action.payload.data.value) !== -1;
+    });
+  }
+
+  return retorno;
 }
