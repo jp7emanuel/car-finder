@@ -6,7 +6,7 @@ import {
   UPDATE_MAKER
 } from './types';
 
-const API_URL = 'http://localhost:8081';
+const API_URL = process.env.REACT_APP_API_URL;
 
 export function fetchMakers() {
   return (dispatch) => {

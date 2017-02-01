@@ -51,7 +51,7 @@ class List extends Component {
         return (
           <div key={car._id} className='item'>
             <div className='image'>
-              <img src='http://dlu2usud3h120.cloudfront.net/imagens/modules/localidade/cidades/carro-localidade-personalizada.png' role='presentation' />
+              <img src={car.photo} role='presentation' />
             </div>
             <div className='content'>
               <div className='header'>{car.name}</div>

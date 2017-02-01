@@ -21,7 +21,7 @@ class Edit extends Component {
   }
 
   render() {
-    if (this.props.car) {
+    if (this.props.car && this.props.car.maker) {
       this.props.car.maker = this.props.car.maker._id;
     }
 
