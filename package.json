@@ -37,7 +37,7 @@
     "test": "react-scripts test --env=jsdom",
     "preinstall": "mkdir -p semantic/src; touch semantic/src/theme.config",
     "postinstall": "gulp",
-    "heroku-postbuild": "react-scripts build",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "heroku-postbuild": "npm run build"
   }
 }
