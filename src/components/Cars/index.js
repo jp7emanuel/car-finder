@@ -39,7 +39,7 @@ class Index extends Component {
             </div>
             <CarsSearch
               cars={this.props.cars}
-              carsToFilter={this.props.carsFilteredByMaker || this.props.cars}
+              carsToFilter={this.props.carsFilteredByMaker}
               onChangeSearch={this.onChangeSearch.bind(this)}
             />
 
