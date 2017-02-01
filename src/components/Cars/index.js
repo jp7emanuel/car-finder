@@ -41,6 +41,8 @@ class Index extends Component {
               cars={this.props.cars}
               carsToFilter={this.props.carsFilteredByMaker}
               onChangeSearch={this.onChangeSearch.bind(this)}
+              makerSelected={this.props.makerSelected}
+              carSelected={this.props.carSelected}
             />
 
             <CarsList cars={this.props.filteredCars || this.props.cars} onDelete={this.onDelete.bind(this)}/>
@@ -57,7 +59,9 @@ function mapStateToProps(state) {
   return {
     cars: state.cars.cars,
     carsFilteredByMaker: state.cars.carsFilteredByMaker,
-    filteredCars: state.cars.filteredCars
+    filteredCars: state.cars.filteredCars,
+    makerSelected: state.cars.makerSelected,
+    carSelected: state.cars.carSelected
   };
 }
 

@@ -11,6 +11,8 @@ const INITIAL_STATE = {
   cars: [],
   car: null,
   carsFilteredByMaker: null,
+  makerSelected: null,
+  carSelected: null,
   filteredCars: null,
   isLoading: false
 };
@@ -39,11 +41,14 @@ function filter(state, action) {
   let retorno = {
     carsFilteredByMaker: state.carsFilteredByMaker || null,
     filteredCars: state.carsFilteredByMaker || null,
+    makerSelected: state.makerSelected || null,
+    carSelected: null,
     isLoading: false
   };
 
   if (action.payload.data.type === 'maker') {
     if (action.payload.data.value) {
+      retorno.makerSelected = action.payload.data.value;
       retorno.filteredCars = state.cars.filter((car) => {
         return car.maker._id.indexOf(action.payload.data.value) !== -1;
       });
@@ -51,10 +56,13 @@ function filter(state, action) {
     } else {
       retorno.filteredCars = null;
       retorno.carsFilteredByMaker = null;
+      retorno.makerSelected = null;
+      retorno.carSelected = null;
     }
   }
 
   if (action.payload.data.type === 'car' && action.payload.data.value) {
+    retorno.carSelected = action.payload.data.value;
     retorno.filteredCars = state.cars.filter((car) => {
       return car._id.indexOf(action.payload.data.value) !== -1;
     });

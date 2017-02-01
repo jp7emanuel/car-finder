@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, initialize } from 'redux-form';
 import { selectInput } from '../common';
 import _ from 'lodash';
 
 class Search extends Component {
+  componentDidUpdate() {
+    const initialFormData = {
+      maker: this.props.makerSelected,
+      car: this.props.carSelected
+    };
+
+    this.props.dispatch(initialize('search', initialFormData));
+  }
+
   onChange(event) {
     this.props.onChangeSearch({
       type: event.target.name,
@@ -27,13 +36,13 @@ class Search extends Component {
         <div className='ui grid form'>
           <div className='eight wide column'>
             <Field name='maker' label='maker' component={selectInput} onChange={this.onChange.bind(this)}>
-              <option value="">Select an option</option>
+              <option value="">Select a maker</option>
               {renderMakerOption}
             </Field>
           </div>
           <div className='eight wide column'>
             <Field name='car' label='car' component={selectInput} onChange={this.onChange.bind(this)}>
-              <option value="">Cars</option>
+              <option value="">Select a car</option>
               {renderCarsOption}
             </Field>
           </div>
