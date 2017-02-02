@@ -10,10 +10,6 @@ app.use(express.static(__dirname + '/../build'));
 app.use(cors());
 app.use(bodyParser.json());
 
-app.get('/', function(req, res, next){
-  res.sendStatus(200);
-});
-
 require('./database/connect').connect(app);
 
 app.use(require('./routes/cars'));
