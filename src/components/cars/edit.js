@@ -15,8 +15,10 @@ class Edit extends Component {
 
   onSubmit(props) {
     this.props.updateCar({...props, _id: this.props.params.id})
-      .then((response) => {
-        this.context.router.push('/');
+      .then((retorno) => {
+        if (retorno.payload.status === 200) {
+          this.context.router.push('/');
+        }
       });
   }
 

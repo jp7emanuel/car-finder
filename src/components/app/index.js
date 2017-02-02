@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import Header from '../common/header';
+import Routes from '../../routes';
 
-export default class Index extends Component {
+class Index extends Component {
   render() {
     return (
-      <div>
+      <div className='initial-class'>
         <Header />
-        <div className='container'>
-          {this.props.children}
-        </div>
+        <Routes />
       </div>
     );
   }
 }
+
+export default Index;

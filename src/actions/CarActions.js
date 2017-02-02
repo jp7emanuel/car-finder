@@ -52,27 +52,27 @@ export function createCar(car) {
 }
 
 export function updateCar(car) {
-  if (typeof car.photo[0] === 'object') {
-    return (dispatch) => {
-      dispatch(isLoading());
+  return (dispatch) => {
+    dispatch(isLoading());
 
+    if (typeof car.photo[0] === 'object') {
       return firebaseApp.storage().ref().child(uuid.v4())
         .put(car.photo[0]).then((snapshot) => {
           car.photo = snapshot.downloadURL;
-          return {
-            type: CREATE_CAR,
-            payload: axios.put(`${API_URL}/carfinder/cars/${car._id}`, car)
-          };
+          return updateAction(dispatch, car);
         });
-    };
-  } else {
-    const request = axios.put(`${API_URL}/carfinder/cars/${car._id}`, car);
-    return {
-      type: CREATE_CAR,
-      payload: request
-    };
-  }
+    } else {
+      return updateAction(dispatch, car);
+    }
+  };
 };
+
+function updateAction(dispatch, car) {
+  return dispatch({
+    type: CREATE_CAR,
+    payload: axios.put(`${API_URL}/carfinder/cars/${car._id}`, car)
+  });
+}
 
 export function deleteCar(id) {
   const request = axios.delete(`${API_URL}/carfinder/cars/${id}`);

@@ -1,7 +1,7 @@
 import React from 'react';
-import { Route, IndexRoute } from 'react-router';
+import Match from 'react-router/Match';
+import Miss from 'react-router/Miss';
 
-import App from './components/app';
 import CarsIndex from './components/cars';
 import CarsNew from './components/cars/new';
 import CarsEdit from './components/cars/edit';
@@ -10,14 +10,26 @@ import MakersIndex from './components/makers';
 import MakersNew from './components/makers/new';
 import MakersEdit from './components/makers/edit';
 
-export default (
-  <Route path='/' component={App}>
-    <IndexRoute component={CarsIndex} />
-    <Route path='cars/new' component={CarsNew} />
-    <Route path='cars/edit/:id' component={CarsEdit} />
-
-    <Route path='makers' component={MakersIndex} />
-    <Route path='makers/new' component={MakersNew} />
-    <Route path='makers/edit/:id' component={MakersEdit} />
-  </Route>
+const NoMatch = ({ location }) => (
+  <div className='ui container'>
+    <div className='ui huge message'>
+      <p className='ui center aligned header'>Sorry, Page not found.</p>
+    </div>
+  </div>
 );
+
+const Routes = () => (
+  <div>
+    <Match exactly pattern='/' component={CarsIndex} />
+    <Match pattern='/cars/new' component={CarsNew} />
+    <Match pattern='/cars/edit/:id' component={CarsEdit} />
+
+    <Match pattern='/makers' component={MakersIndex} />
+    <Match pattern='/makers/new' component={MakersNew} />
+    <Match pattern='/makers/edit/:id' component={MakersEdit} />
+
+    <Miss component={NoMatch} />
+  </div>
+);
+
+export default Routes;

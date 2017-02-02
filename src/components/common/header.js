@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { IndexLink, Link } from 'react-router';
+import Link from 'react-router/Link';
 
 class Header extends Component {
   render() {
@@ -8,7 +8,7 @@ class Header extends Component {
     );
     return (
       <div className='ui secondary pointing menu'>
-        <IndexLink to="/" className={isActive('/')}>Home</IndexLink>
+        <Link to="/" className={isActive('/')}>Home</Link>
         <Link to='/cars/new' className={isActive('/cars/new')}>New Car</Link>
 
         <Link to='/makers' className={isActive('/makers')}>Makers</Link>
