@@ -1,26 +1,15 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import _ from 'lodash';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
-import { fetchCars, deleteCar, searchCar } from '../../actions/index';
-import _ from 'lodash';
+import { fetchCars, searchCar } from '../../actions/index';
 import CarsList from './list';
 import CarsSearch from './search';
 
 class Index extends Component {
-  static contextTypes = {
-    router: PropTypes.object
-  };
-
   componentWillMount() {
     this.props.fetchCars();
-  }
-
-  onDelete(id) {
-    this.props.deleteCar(id)
-      .then(() => {
-        this.context.router.go('/');
-      });
   }
 
   onChangeSearch(text) {
@@ -45,7 +34,7 @@ class Index extends Component {
               carSelected={this.props.carSelected}
             />
 
-            <CarsList cars={this.props.filteredCars || this.props.cars} onDelete={this.onDelete.bind(this)}/>
+            <CarsList cars={this.props.filteredCars || this.props.cars} />
           </div>
         </div>
       );
@@ -66,7 +55,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchCars, deleteCar, searchCar }, dispatch);
+  return bindActionCreators({ fetchCars, searchCar }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Index);

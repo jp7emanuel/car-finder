@@ -24,11 +24,6 @@ class List extends Component {
     }
   }
 
-  handleOnDelete(id) {
-    event.preventDefault();
-    this.props.onDelete(id);
-  }
-
   handleLoadMore() {
     let startValue = this.state.carsList.length + 10;
     this.setState({ carsList: this.state.carsList.concat(this.sliceCars(this.state.carsList.length, startValue)) });
@@ -55,13 +50,13 @@ class List extends Component {
             </div>
             <div className='content'>
               <div className='header'>{car.name}</div>
-              <div className='meta'>{ car.maker.name }</div>
-
+              <div className='meta'>{car.maker.name}</div>
+              <div className='description'>{car.details.substr(0, 300)}...</div>
               <div className='extra'>
-                <Link to={`/cars/edit/${car._id}`} className='ui primary basic button'>Edit</Link>
-                <a href="#" className='ui negative basic button' onClick={this.handleOnDelete.bind(this, car._id)}>
-                  Delete
-                </a>
+                <p className='price'>R$ {car.price || 'A definir'}</p>
+                <div className='ui right floated'>
+                  <Link to={`/cars/show/${car._id}`}  className='ui primary basic button'>Details</Link>
+                </div>
               </div>
             </div>
           </div>
@@ -77,7 +72,7 @@ class List extends Component {
         loader={<div className="loader">Loading ...</div>}
         initialLoad={false}
       >
-        <div className='ui divided items'>
+        <div className='ui items items-list'>
           {carsRender}
         </div>
       </InfiniteScroll>

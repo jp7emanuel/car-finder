@@ -1,12 +1,13 @@
-import React, { Component, PropTypes  } from 'react';
+import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { fetchCar, updateCar } from '../../actions/index';
 import CarsForm from './form';
+import Redirect from 'react-router/Redirect';
 
 class Edit extends Component {
-  static contextTypes = {
-    router: PropTypes.object
+  state = {
+    saved: false,
   };
 
   componentWillMount() {
@@ -17,12 +18,20 @@ class Edit extends Component {
     this.props.updateCar({...props, _id: this.props.params.id})
       .then((retorno) => {
         if (retorno.payload.status === 200) {
-          this.context.router.push('/');
+          this.setState({ saved: true });
         }
       });
   }
 
   render() {
+    if (!this.props.car) {
+      return <div>Loading...</div>;
+    }
+
+    if (this.state.saved) {
+      return <Redirect to={`/cars/show/${this.props.params.id}`} />;
+    }
+
     if (this.props.car && this.props.car.maker) {
       this.props.car.maker = this.props.car.maker._id;
     }
@@ -33,6 +42,7 @@ class Edit extends Component {
           <h3>Edit a Car</h3>
           <CarsForm
             formSubmit={this.onSubmit.bind(this)}
+            car={this.props.car}
             initialValues={this.props.car}
             isLoading={this.props.isLoading}
           />

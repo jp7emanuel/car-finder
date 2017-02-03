@@ -1,24 +1,29 @@
-import React, { Component, PropTypes  } from 'react';
+import React, { Component  } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import Redirect from 'react-router/Redirect';
 import { createCar, uploadImage } from '../../actions/index';
 import CarsForm from './form';
 
 class New extends Component {
-  static contextTypes = {
-    router: PropTypes.object
+  state = {
+    saved: false,
   };
 
   onSubmit(props) {
     this.props.createCar(props)
       .then((response) => {
         response.payload.then((status) => {
-          this.context.router.push('/');
+          this.setState({ saved: true });
         });
       });
   }
 
   render() {
+    if (this.state.saved) {
+      return <Redirect to="/" />;
+    }
+
     return (
       <div>
         <div className='ui container form-new'>

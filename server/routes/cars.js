@@ -6,7 +6,10 @@ const app = express();
 let carSchema = mongoose.Schema({
   name: String,
   photo: String,
-  maker: {  type: mongoose.Schema.Types.ObjectId, ref: 'Makers' }
+  maker: {  type: mongoose.Schema.Types.ObjectId, ref: 'Makers' },
+  details: String,
+  year: String,
+  price: String
 });
 
 let Car = mongoose.model('Cars', carSchema);

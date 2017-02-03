@@ -4,6 +4,7 @@ import Miss from 'react-router/Miss';
 
 import CarsIndex from './components/cars';
 import CarsNew from './components/cars/new';
+import CarsShow from './components/cars/show';
 import CarsEdit from './components/cars/edit';
 
 import MakersIndex from './components/makers';
@@ -22,6 +23,7 @@ const Routes = () => (
   <div>
     <Match exactly pattern='/' component={CarsIndex} />
     <Match pattern='/cars/new' component={CarsNew} />
+    <Match pattern='/cars/show/:id' component={CarsShow} />
     <Match pattern='/cars/edit/:id' component={CarsEdit} />
 
     <Match pattern='/makers' component={MakersIndex} />

@@ -75,10 +75,9 @@ function updateAction(dispatch, car) {
 }
 
 export function deleteCar(id) {
-  const request = axios.delete(`${API_URL}/carfinder/cars/${id}`);
   return {
     type: CREATE_CAR,
-    payload: request
+    payload: axios.delete(`${API_URL}/carfinder/cars/${id}`)
   };
 };
 

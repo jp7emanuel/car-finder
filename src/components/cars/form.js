@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { fetchMakers } from '../../actions/index';
-import { textInput, selectInput, Loading } from '../common';
+import { textInput, selectInput, textareaInput, currencyInput, Loading } from '../common';
+import createHistory from 'history/createBrowserHistory';
 
+const history = createHistory();
 const required = value => value ? undefined : 'Required';
 
 class Form extends Component {
   componentWillMount() {
-    this.props.initialize();
     this.props.fetchMakers();
   }
 
@@ -35,10 +35,22 @@ class Form extends Component {
         </div>
 
         <div className='field'>
-          <Field name='maker'label='maker' component={selectInput} validate={[ required ]}>
+          <Field name='maker'label='Maker' component={selectInput} validate={[ required ]}>
             <option value="">Select an option</option>
             {renderMakerOption}
           </Field>
+        </div>
+
+        <div className='field'>
+          <Field name='year' type='text' label='Year' component={textInput} validate={[ required ]} />
+        </div>
+
+        <div className='field'>
+          <Field name='details' label='Details' component={textareaInput} validate={[ required ]} />
+        </div>
+
+        <div className='field'>
+          <Field name='price' label='Price' component={currencyInput} validate={[ required ]} />
         </div>
 
         <div className='field'>
@@ -47,7 +59,7 @@ class Form extends Component {
 
         <div className='actions-buttons'>
           <button type='submit' className='ui blue basic button'>Send</button>
-          <Link to='/' className='ui red basic button'>Cancel</Link>
+          <button onClick={() => history.goBack()} className='ui red basic button'>Cancel</button>
         </div>
       </form>
     );
