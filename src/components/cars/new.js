@@ -6,9 +6,7 @@ import { createCar, uploadImage } from '../../actions/index';
 import CarsForm from './form';
 
 class New extends Component {
-  state = {
-    saved: false,
-  };
+  state = { saved: false };
 
   onSubmit(props) {
     this.props.createCar(props)

@@ -1,10 +1,14 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import InfiniteScroll from 'react-infinite-scroller';
-import _ from 'lodash';
+import { Loading } from '../common';
 
 class List extends Component {
-  state = { carsList: [], hasMore: true };
+  state = {
+    carsList: [],
+    hasMore: true
+  };
 
   componentWillMount() {
     this.setState({ carsList: this.sliceCars() });
@@ -40,36 +44,37 @@ class List extends Component {
   }
 
   render() {
-    let carsRender = null;
-    if (this.state.carsList) {
-      carsRender = this.state.carsList.map((car) => {
-        return (
-          <div key={car._id} className='item'>
-            <div className='image'>
-              <img src={car.photo} role='presentation' />
-            </div>
-            <div className='content'>
-              <div className='header'>{car.name}</div>
-              <div className='meta'>{car.maker.name}</div>
-              <div className='description'>{car.details.substr(0, 300)}...</div>
-              <div className='extra'>
-                <p className='price'>R$ {car.price || 'A definir'}</p>
-                <div className='ui right floated'>
-                  <Link to={`/cars/show/${car._id}`}  className='ui primary basic button'>Details</Link>
-                </div>
+    if (!this.state.carsList.length) {
+      return <Loading />;
+    }
+
+    const carsRender = this.state.carsList.map((car) => {
+      return (
+        <div key={car._id} className='item'>
+          <div className='image'>
+            <img src={car.photo} role='presentation' />
+          </div>
+          <div className='content'>
+            <div className='header'>{car.name}</div>
+            <div className='meta'>{car.maker.name}</div>
+            <div className='description'>{car.details.substr(0, 300)}...</div>
+            <div className='extra'>
+              <p className='price'>R$ {car.price || 'A definir'}</p>
+              <div className='ui right floated'>
+                <Link to={`/cars/show/${car._id}`}  className='ui primary basic button'>Details</Link>
               </div>
             </div>
           </div>
-        );
-      });
-    }
+        </div>
+      );
+    });
 
     return (
       <InfiniteScroll
         pageStart={10}
         loadMore={this.handleLoadMore.bind(this)}
         hasMore={this.state.hasMore}
-        loader={<div className="loader">Loading ...</div>}
+        loader={<Loading />}
         initialLoad={false}
       >
         <div className='ui items items-list'>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { fetchCar, updateCar } from '../../actions/index';
+import { Loading } from '../common';
 import CarsForm from './form';
 import Redirect from 'react-router/Redirect';
 
@@ -24,12 +25,12 @@ class Edit extends Component {
   }
 
   render() {
-    if (!this.props.car) {
-      return <div>Loading...</div>;
-    }
-
     if (this.state.saved) {
       return <Redirect to={`/cars/show/${this.props.params.id}`} />;
+    }
+
+    if (!this.props.car) {
+      return <Loading />;
     }
 
     if (this.props.car && this.props.car.maker) {

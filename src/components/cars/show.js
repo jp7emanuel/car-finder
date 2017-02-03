@@ -3,12 +3,11 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { fetchCar, deleteCar } from '../../actions/index';
 import { Link } from 'react-router';
+import { Loading } from '../common';
 import Redirect from 'react-router/Redirect';
 
 class Show extends Component {
-  state = {
-    saved: false,
-  };
+  state = { saved: false };
 
   componentWillMount() {
     this.props.fetchCar(this.props.params.id);
@@ -30,7 +29,7 @@ class Show extends Component {
     }
 
     if (!this.props.car || (this.props.car && !this.props.car.maker)) {
-      return <div>Loading...</div>;
+      return <Loading />;
     }
 
     return (

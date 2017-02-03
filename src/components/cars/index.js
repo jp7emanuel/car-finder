@@ -3,6 +3,7 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
+import { Loading } from '../common';
 import { fetchCars, searchCar } from '../../actions/index';
 import CarsList from './list';
 import CarsSearch from './search';
@@ -39,7 +40,7 @@ class Index extends Component {
         </div>
       );
     } else {
-      return <div>Loading...</div>
+      return <Loading />
     }
   }
 }
