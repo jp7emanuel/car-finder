@@ -68,6 +68,7 @@
   margin: 21% 30%;
   width: auto;
   padding: 10px;
+  background-color: rgba(255, 255, 255, 0.6);
 }
 
 .carousel-size .description .description-car {
@@ -89,6 +90,12 @@
 @media screen and (max-width: 1080px) {
   .carousel-size img {
     width: 100%;
+  }
+  .carousel-size .description {
+    margin: 10% 30%;
+  }
+  .carousel-size .description .description-price span {
+    display: block;
   }
 }
 

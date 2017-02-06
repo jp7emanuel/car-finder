@@ -16,20 +16,6 @@ class Search extends Component {
     this.props.dispatch(initialize('search', initialFormData));
   }
 
-  onChangeInitialPrice(price) {
-    this.props.onChangeSearch({
-      type: 'initialPrice',
-      value: price
-    });
-  }
-
-  onChangeFinalPrice(price) {
-    this.props.onChangeSearch({
-      type: 'finalPrice',
-      value: price
-    });
-  }
-
   onChange(event) {
     this.props.onChangeSearch({
       type: event.target.name,
@@ -50,26 +36,19 @@ class Search extends Component {
     return (
       <div className='ui segment'>
         <h2 className='ui floated header'>Cars</h2>
+        <div className='ui clearing divider'></div>
         <div className='ui grid form'>
-          <div className='four wide column'>
+          <div className='eight wide column'>
             <Field name='maker' label='Maker' component={selectInput} onChange={this.onChange.bind(this)}>
               <option value="">Select a maker</option>
               {renderMakerOption}
             </Field>
           </div>
-          <div className='four wide column'>
+          <div className='eight wide column'>
             <Field name='car' label='Car' component={selectInput} onChange={this.onChange.bind(this)}>
               <option value="">Select a car</option>
               {renderCarsOption}
             </Field>
-          </div>
-          <div className='four wide column field'>
-            <label>Initial Price</label>
-            <CurrencyInput name='initialPrice' onChange={this.onChangeInitialPrice.bind(this)} />
-          </div>
-          <div className='four wide column field'>
-            <label>Final Price</label>
-            <CurrencyInput name='finalPrice' onChange={this.onChangeFinalPrice.bind(this)} />
           </div>
         </div>
       </div>

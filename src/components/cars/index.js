@@ -18,7 +18,7 @@ class Index extends Component {
   }
 
   render() {
-    if (this.props.filteredCars || this.props.cars.length > 0) {
+    if (this.props.cars.length) {
       return (
         <div>
           <div className='ui grid carousel'>
