@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 import { Field, reduxForm, initialize } from 'redux-form';
 import { selectInput } from '../common';
-import _ from 'lodash';
-import CurrencyInput from 'react-currency-input';
 
 class Search extends Component {
   state = { initialPrice: 0 };

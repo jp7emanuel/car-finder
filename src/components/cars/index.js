@@ -21,11 +21,7 @@ class Index extends Component {
     if (this.props.cars.length) {
       return (
         <div>
-          <div className='ui grid carousel'>
-            <div className='column'>
-            <Carousel items={this.props.carouselCars} />
-            </div>
-          </div>
+          <Carousel items={this.props.carouselCars} />
           <div className='ui container'>
             <div className='ui right aligned header' style={{ marginTop: 10 }}>
               <Link to='/cars/new' className='ui green basic button'>

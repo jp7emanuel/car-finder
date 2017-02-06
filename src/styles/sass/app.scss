@@ -51,6 +51,8 @@
 
 .carousel-size {
     position: relative;
+    min-height: 533px!important;
+    max-height: 533px;
 
     img {
         margin: 0 auto;

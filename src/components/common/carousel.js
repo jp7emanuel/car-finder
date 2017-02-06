@@ -10,35 +10,43 @@ const SampleArrow = React.createClass({
 });
 
 const Carousel = ({ items }) => {
-  const settings = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    utoplay: true,
-    autoplaySpeed: 3000,
-    nextArrow: <SampleArrow classeName='slicker slicker-next' position='right' />,
-    prevArrow: <SampleArrow classeName='slicker slicker-prev' position='left' />
-  };
+  if (items.length) {
+    const settings = {
+      dots: false,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      utoplay: true,
+      autoplaySpeed: 3000,
+      nextArrow: <SampleArrow classeName='slicker slicker-next' position='right' />,
+      prevArrow: <SampleArrow classeName='slicker slicker-prev' position='left' />
+    };
 
-  const itemsRender = items.map((car) => {
+    const itemsRender = items.map((car) => {
+      return (
+        <div key={car._id} className='carousel-size'>
+          <img src={car.photo} role='presentation' />
+          <div className='description'>
+            <div className='description-car'>{car.name}</div>
+            <div className='description-price'>A partir de <span> R$ {car.price} </span></div>
+          </div>
+        </div>
+      );
+    });
+
     return (
-      <div key={car._id} className='carousel-size'>
-        <img src={car.photo} role='presentation' />
-        <div className='description'>
-          <div className='description-car'>{car.name}</div>
-          <div className='description-price'>A partir de <span> R$ {car.price} </span></div>
+      <div className='ui grid carousel'>
+        <div className='column'>
+          <Slider {...settings}>
+            {itemsRender}
+          </Slider>
         </div>
       </div>
     );
-  });
-
-  return (
-    <Slider {...settings}>
-      {itemsRender}
-    </Slider>
-  );
+  } else {
+    return null;
+  }
 };
 
 export { Carousel };
