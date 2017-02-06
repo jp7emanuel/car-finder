@@ -10,6 +10,7 @@ import {
 const INITIAL_STATE = {
   cars: [],
   car: null,
+  carouselCars: [],
   carsFilteredByMaker: null,
   makerSelected: null,
   carSelected: null,
@@ -20,7 +21,11 @@ const INITIAL_STATE = {
 export default function(state = INITIAL_STATE, action) {
   switch(action.type) {
     case FETCH_CARS:
-      return { ...state, cars: action.payload.data, isLoading: false };
+      const carouselCars = action.payload.data.filter((car) => {
+        return car.featured === true;
+      });
+
+      return { ...state, cars: action.payload.data, carouselCars: carouselCars, isLoading: false };
     case FETCH_CAR:
       return { ...state, car: action.payload.data, isLoading: false };
     case CREATE_CAR:

@@ -3,7 +3,13 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { fetchMakers } from '../../actions/index';
-import { textInput, selectInput, textareaInput, currencyInput, Loading } from '../common';
+import {
+  textInput,
+  selectInput,
+  textareaInput,
+  currencyInput,
+  Loading
+} from '../common';
 import createHistory from 'history/createBrowserHistory';
 
 const history = createHistory();
@@ -55,6 +61,10 @@ class Form extends Component {
 
         <div className='field'>
           <Field name='photo' type='file' component={textInput} label='Photo' validate={checkPhotoRequired} />
+        </div>
+
+        <div className='field'>
+          <Field name='featured' type='checkbox' label='Featured' component={textInput} />
         </div>
 
         <div className='actions-buttons'>

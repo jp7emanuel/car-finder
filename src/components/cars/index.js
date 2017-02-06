@@ -3,7 +3,7 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
-import { Loading } from '../common';
+import { Loading, Carousel } from '../common';
 import { fetchCars, searchCar } from '../../actions/index';
 import CarsList from './list';
 import CarsSearch from './search';
@@ -21,6 +21,11 @@ class Index extends Component {
     if (this.props.filteredCars || this.props.cars.length > 0) {
       return (
         <div>
+          <div className='ui grid carousel'>
+            <div className='column'>
+            <Carousel items={this.props.carouselCars} />
+            </div>
+          </div>
           <div className='ui container'>
             <div className='ui right aligned header' style={{ marginTop: 10 }}>
               <Link to='/cars/new' className='ui green basic button'>
@@ -48,6 +53,7 @@ class Index extends Component {
 function mapStateToProps(state) {
   return {
     cars: state.cars.cars,
+    carouselCars: state.cars.carouselCars,
     carsFilteredByMaker: state.cars.carsFilteredByMaker,
     filteredCars: state.cars.filteredCars,
     makerSelected: state.cars.makerSelected,

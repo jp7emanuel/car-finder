@@ -23,4 +23,73 @@
   width: 100%;
 }
 
+.carousel {
+  box-shadow: 0px 2px 3px #ccc;
+  margin-bottom: 20px !important;
+}
+
+.carousel .slicker {
+  height: 20px;
+  width: 20px;
+  line-height: 0;
+  cursor: pointer;
+  background: 0 0;
+  top: 50%;
+  border: none;
+  outline: 0;
+  position: absolute;
+  color: black;
+  z-index: 4;
+  font-size: 20px;
+}
+
+.carousel .slicker-prev {
+  left: 50px !important;
+}
+
+.carousel .slicker-next {
+  right: 50px !important;
+}
+
+.carousel-size {
+  position: relative;
+}
+
+.carousel-size img {
+  margin: 0 auto;
+}
+
+.carousel-size .description {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  margin: 21% 30%;
+  width: auto;
+  padding: 10px;
+}
+
+.carousel-size .description .description-car {
+  border: 1px solid #ffcd00;
+  border-left: none;
+  border-right: none;
+  padding: 15px;
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.carousel-size .description .description-price span {
+  color: #ffcd00;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Smartphones */
+@media screen and (max-width: 1080px) {
+  .carousel-size img {
+    width: 100%;
+  }
+}
+
 /*# sourceMappingURL=3rd-party.css.map */

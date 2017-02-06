@@ -9,7 +9,8 @@ let carSchema = mongoose.Schema({
   maker: {  type: mongoose.Schema.Types.ObjectId, ref: 'Makers' },
   details: String,
   year: String,
-  price: String
+  price: String,
+  featured: Boolean
 });
 
 let Car = mongoose.model('Cars', carSchema);
