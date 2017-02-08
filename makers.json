@@ -1,0 +1,6 @@
+{"_id":{"$oid":"5889fcd452772144bed20358"},"name":"Toyota"}
+{"_id":{"$oid":"588a59a82c72888428d36321"},"name":"BMW"}
+{"_id":{"$oid":"588a59c52c72888428d36322"},"name":"Mercedes-Benz"}
+{"_id":{"$oid":"588a59cd2c72888428d36323"},"name":"Honda"}
+{"_id":{"$oid":"588ba0dca58e8969b926e9f2"},"name":"Chevrolet","__v":0}
+{"_id":{"$oid":"588ba73ac399226e121925d0"},"name":"Fiat","__v":0}

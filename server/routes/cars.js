@@ -1,7 +1,19 @@
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const express = require('express');
+const multer = require('multer');
 const app = express();
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './public/uploads')
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now()+'-'+file.originalname)
+  }
+});
+
+var upload = multer({ storage: storage });
 
 let carSchema = mongoose.Schema({
   name: String,
@@ -41,10 +53,11 @@ app.get("/carfinder/cars/:id", function(req, res) {
   });
 });
 
-app.post("/carfinder/cars", function(req, res) {
+app.post("/carfinder/cars", upload.any(), function(req, res) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
 
+  req.body.photo = '/uploads/' + req.files[0].filename;
   let newCAr = new Car(req.body);
 
   newCAr.save(function(err, docs) {
@@ -56,11 +69,12 @@ app.post("/carfinder/cars", function(req, res) {
   });
 });
 
-app.put("/carfinder/cars/:id", function(req, res) {
+app.put("/carfinder/cars/:id", upload.any(), function(req, res) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
 
   let updateDoc = req.body;
+  req.body.photo = '/uploads/' + req.files[0].filename;
   delete updateDoc._id;
 
   Car.update({ _id: req.params.id }, { $set: updateDoc}).exec(function (err, docs) {

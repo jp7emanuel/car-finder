@@ -10,6 +10,7 @@ import {
   NOT_LOADING
 } from './types';
 
+const FormData = require('form-data');
 const API_URL = process.env.REACT_APP_API_URL;
 
 export function fetchCars() {
@@ -38,33 +39,51 @@ export function fetchCar(id) {
 
 export function createCar(car) {
   return (dispatch) => {
-    dispatch(isLoading());
+    let data = new FormData();
+    data.append('file', car.photo[0]);
+    data.append('name', car.name);
+    data.append('maker', car.maker);
+    data.append('details', car.details);
+    data.append('year', car.year);
+    data.append('price', car.price);
+    data.append('featured', car.featured);
 
-    return firebaseApp.storage().ref().child(uuid.v4())
-      .put(car.photo[0]).then((snapshot) => {
-        car.photo = snapshot.downloadURL;
-        return {
-          type: CREATE_CAR,
-          payload: axios.post(`${API_URL}/carfinder/cars`, car)
-        };
-      });
-  };
+    const request = axios({
+      url: `${API_URL}/carfinder/cars`,
+      data: data,
+      method: 'post',
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+
+    return dispatch({
+      type: CREATE_CAR,
+      payload: request
+    });
+  }
 }
 
 export function updateCar(car) {
   return (dispatch) => {
-    dispatch(isLoading());
+    let data = new FormData();
+    data.append('file', car.photo[0]);
+    data.append('car', car);
 
-    if (typeof car.photo[0] === 'object') {
-      return firebaseApp.storage().ref().child(uuid.v4())
-        .put(car.photo[0]).then((snapshot) => {
-          car.photo = snapshot.downloadURL;
-          return updateAction(dispatch, car);
-        });
-    } else {
-      return updateAction(dispatch, car);
-    }
-  };
+    const request = axios({
+      url: `${API_URL}/carfinder/cars/${car._id}`,
+      data: data,
+      method: 'put',
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+
+    return dispatch({
+      type: CREATE_CAR,
+      payload: request
+    });
+  }
 };
 
 function updateAction(dispatch, car) {

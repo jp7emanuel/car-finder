@@ -11,9 +11,7 @@ class New extends Component {
   onSubmit(props) {
     this.props.createCar(props)
       .then((response) => {
-        response.payload.then((status) => {
-          this.setState({ saved: true });
-        });
+        this.setState({ saved: true });
       });
   }
 
