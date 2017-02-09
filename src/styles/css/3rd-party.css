@@ -94,6 +94,10 @@
   font-weight: bold;
 }
 
+.items-list .image {
+  width: 250px !important;
+}
+
 /* Smartphones */
 @media screen and (max-width: 1080px) {
   .slick-list {
