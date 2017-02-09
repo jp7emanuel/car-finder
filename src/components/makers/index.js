@@ -27,7 +27,7 @@ class Index extends Component {
         <div className='ui container'>
           <div className='ui right aligned header' style={{ marginTop: 10 }}>
             <Link to='/makers/new' className='ui green basic button'>
-              New Car
+              New Maker
             </Link>
           </div>
 
