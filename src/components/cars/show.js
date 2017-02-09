@@ -44,7 +44,7 @@ class Show extends Component {
         </div>
 
         <div className='row'>
-          <div className='eight wide column'>
+          <div className='four wide column'>
             <h3 className='ui header'>{this.props.car.name}</h3>
             <p>
               Maker: {this.props.car.maker.name} <br/>
@@ -58,7 +58,7 @@ class Show extends Component {
             <p>{this.props.car.details}</p>
           </div>
 
-          <div className='six wide right floated column' style={{ marginBottom: 15 }}>
+          <div className='ten wide right floated column' style={{ marginBottom: 15 }}>
             <img className='ui fluid bordered rounded image' src={this.props.car.photo} role='presentation' />
           </div>
         </div>
