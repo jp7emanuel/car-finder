@@ -67,8 +67,16 @@ export function createCar(car) {
 export function updateCar(car) {
   return (dispatch) => {
     let data = new FormData();
-    data.append('file', car.photo[0]);
-    data.append('car', car);
+    if (typeof car.photo[0] === 'object') {
+      data.append('file', car.photo[0]);
+    }
+    data.append('name', car.name);
+    data.append('maker', car.maker);
+    data.append('details', car.details);
+    data.append('year', car.year);
+    data.append('photo', car.photo);
+    data.append('price', car.price);
+    data.append('featured', car.featured);
 
     const request = axios({
       url: `${API_URL}/carfinder/cars/${car._id}`,

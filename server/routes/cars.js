@@ -74,9 +74,12 @@ app.put("/carfinder/cars/:id", upload.any(), function(req, res) {
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
 
   let updateDoc = req.body;
-  req.body.photo = '/uploads/' + req.files[0].filename;
   delete updateDoc._id;
 
+  if (req.files.length) {
+    req.body.photo = '/uploads/' + req.files[0].filename;
+  }
+  console.log(req.body);
   Car.update({ _id: req.params.id }, { $set: updateDoc}).exec(function (err, docs) {
     if (err) {
       handleError(res, err.message, "Failed to get objects.");
