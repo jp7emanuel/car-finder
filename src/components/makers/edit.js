@@ -1,13 +1,12 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { fetchMaker, updateMaker } from '../../actions/index';
+import Redirect from 'react-router/Redirect';
 import MakersForm from './form';
 
 class Edit extends Component {
-  static contextTypes = {
-    router: PropTypes.object
-  };
+  state = { saved: false };
 
   componentWillMount() {
     this.props.fetchMaker(this.props.params.id);
@@ -15,11 +14,15 @@ class Edit extends Component {
 
   onSubmit(props) {
     this.props.updateMaker({...props, _id: this.props.params.id}).then(() => {
-      this.context.router.push('/makers');
+      this.setState({ saved: true });
     });
   }
 
   render() {
+    if (this.state.saved) {
+      return <Redirect to="/makers" />;
+    }
+
     return(
       <div className='ui container form-edit'>
         <MakersForm

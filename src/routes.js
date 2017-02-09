@@ -26,7 +26,7 @@ const Routes = () => (
     <Match pattern='/cars/show/:id' component={CarsShow} />
     <Match pattern='/cars/edit/:id' component={CarsEdit} />
 
-    <Match pattern='/makers' component={MakersIndex} />
+    <Match exactly pattern='/' pattern='/makers' component={MakersIndex} />
     <Match pattern='/makers/new' component={MakersNew} />
     <Match pattern='/makers/edit/:id' component={MakersEdit} />
 
