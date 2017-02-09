@@ -49,36 +49,42 @@
     }
 }
 
+.carousel .column {
+    padding: 0!important;
+    margin-top: -25px;
+}
+
 .carousel-size {
     position: relative;
-    min-height: 533px!important;
-    max-height: 533px;
+    max-height: 600px;
 
     img {
         margin: 0 auto;
+        width: auto;
+        max-height: 600px;
     }
     .description {
         position: absolute;
-        top: 0px;
+        bottom: 15px;
         left: 0;
         right: 0;
         text-align: center;
-        margin: 21% 30%;
-        width: auto;
+        margin: 0 auto;
+        width: 400px;
         padding: 10px;
-        background-color: rgba(255, 255, 255, 0.6);
+        background-color: rgba(255, 255, 255, 0.7);
 
         .description-car {
-            border: 1px solid #ffcd00;
+            border: 1px solid #f36706;
             border-left: none;
             border-right: none;
             padding: 15px;
-            font-size: 30px;
+            font-size: 2vw;
             margin-bottom: 10px;
         }
         .description-price {
             span {
-                color: #ffcd00;
+                color: #f36706;
                 font-size: 20px;
                 font-weight: bold;
             }
@@ -88,16 +94,39 @@
 
 /* Smartphones */
 @media screen and (max-width: 1080px) {
+    .slick-list {
+        padding: 0!important;
+    }
+
+    .slick-track {
+        width: 100%!important;
+    }
+
     .carousel-size {
+        width: 100%!important;
+
         img {
             width: 100%;
         }
-        .description {
-            margin: 10% 30%;
 
+        .description {
+            width: 200px;
+
+            .description-car {
+                font-size: 4vw;
+            }
             .description-price span {
                 display: block;
             }
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .carousel-size {
+        .description-car {
+            padding: 5px!important;
+            margin-bottom: 5px!important;
         }
     }
 }
