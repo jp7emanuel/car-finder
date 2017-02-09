@@ -13,14 +13,12 @@ const Carousel = ({ items }) => {
   if (items.length) {
     const settings = {
       dots: false,
-      infinite: false,
+      infinite: true,
       speed: 500,
       slidesToShow: 1,
       slidesToScroll: 1,
       utoplay: true,
       autoplaySpeed: 3000,
-      centerMode: true,
-      centerPadding: '60px',
       nextArrow: <SampleArrow classeName='slicker slicker-next' position='right' />,
       prevArrow: <SampleArrow classeName='slicker slicker-prev' position='left' />
     };
